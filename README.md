@@ -1,6 +1,6 @@
 # S4.02-APIRESTSpringBoot-Nivel2
 
-This is a Spring Boot project built with Maven as the dependency manager. It implements a complete CRUD for a `Fruta` entity and follows the MVC pattern, using REST best practices 
+This is a Spring Boot project built with Maven as the dependency manager. It implements a complete CRUD for a `Fruit` entity and follows the MVC pattern, using REST best practices 
 and persistence with a MySQL database.
 
 ## Requirements
