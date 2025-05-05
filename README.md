@@ -1,7 +1,5 @@
 # S4.02-APIRESTSpringBoot-Nivel2
 
-# S04T02N02 - CRUD with Spring Boot and MySQL
-
 This is a Spring Boot project built with Maven as the dependency manager. It implements a complete CRUD for a `Fruta` entity and follows the MVC pattern, using REST best practices 
 and persistence with a MySQL database.
 
