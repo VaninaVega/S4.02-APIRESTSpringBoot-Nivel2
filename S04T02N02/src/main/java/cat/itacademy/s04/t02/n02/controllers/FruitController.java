@@ -10,47 +10,40 @@ import java.util.List;
 import java.util.Optional;
 
 
-    @RestController
-    @RequestMapping("/fruits")
-    public class FruitController {
-        @Autowired
-        private final FruitService service;
+@RestController
+@RequestMapping("/fruits")
+public class FruitController {
+    @Autowired
+    private final FruitService service;
 
-        public FruitController(FruitService service) {
-            this.service = service;
-        }
+    public FruitController(FruitService service) {
+        this.service = service;
+    }
 
-        @PostMapping
-        public ResponseEntity<Fruit> addFruit(@RequestBody Fruit fruit) {
-            return ResponseEntity.ok(service.save(fruit));
-        }
+    @PostMapping
+    public ResponseEntity<Fruit> addFruit(@RequestBody Fruit fruit) {
+        return ResponseEntity.ok(service.save(fruit));
+    }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<Fruit> getFruit(@PathVariable Integer id) {
-            return service.findById(id)
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<Fruit> getFruit(@PathVariable Integer id) {
+        Fruit fruit = service.getFruitById(id);
+        return ResponseEntity.ok(fruit);
+    }
 
-        @GetMapping
-        public ResponseEntity<List<Fruit>> getAll() {
-            return ResponseEntity.ok(service.findAll());
-        }
+    @GetMapping
+    public ResponseEntity<List<Fruit>> getAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<Fruit> updateFruit(@PathVariable Integer id, @RequestBody Fruit fruit) {
-            return service.findById(id).map(existing -> {
-                fruit.setId(id);
-                return ResponseEntity.ok(service.update(fruit));
-            }).orElse(ResponseEntity.notFound().build());
-        }
+    @PutMapping("/update")
+    public ResponseEntity<Fruit> updateFruit(@RequestBody Fruit fruit) {
+        return ResponseEntity.ok(service.update(fruit));
+    }
 
-        @DeleteMapping("/{id}")
-        public Optional<ResponseEntity<String>> delete(@PathVariable int id) {
-            return service.findById(id).map(existing -> {
-                service.deleteById(id);
-                return ResponseEntity.ok("Deleted successfully");
-            });
-
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        service.deleteById(id);
+        return ResponseEntity.ok("Deleted successfully");
+    }
 }

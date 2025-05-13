@@ -1,10 +1,8 @@
 package cat.itacademy.s04.t02.n02.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "fruits")
 public class Fruit {
 
     @Id

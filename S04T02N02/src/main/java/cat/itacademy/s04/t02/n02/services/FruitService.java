@@ -1,5 +1,7 @@
 package cat.itacademy.s04.t02.n02.services;
 
+import cat.itacademy.s04.t02.n02.exceptions.FruitDoesNotExistException;
+import cat.itacademy.s04.t02.n02.exceptions.FruitNotFoundException;
 import cat.itacademy.s04.t02.n02.model.Fruit;
 import cat.itacademy.s04.t02.n02.repository.FruitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,11 @@ public class FruitService {
         return repository.save(fruit);
     }
 
-    public Optional<Fruit> findById(Integer id) {
-        return repository.findById(id);
+    //public Optional<Fruit> findById(Integer id) {
+
+    public Fruit getFruitById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new FruitNotFoundException("Fruit with ID " + id + " not found."));
     }
 
     public List<Fruit> findAll() {
@@ -31,10 +36,17 @@ public class FruitService {
     }
 
     public Fruit update(Fruit fruit) {
+        if (!repository.existsById(fruit.getId())) {
+            throw new FruitDoesNotExistException("Fruit with ID " + fruit.getId() + " does not exist.");
+        }
         return repository.save(fruit);
     }
 
     public void deleteById(int id) {
+
+        if (!repository.existsById(id)) {
+            throw new FruitDoesNotExistException("Cannot be removed: fruit with ID " + id + " does not exist.");
+        }
         repository.deleteById(id);
     }
 }
